@@ -189,3 +189,10 @@ http://127.0.0.1:5501
   Made with ❤️ using Spring Boot, Oracle XE & JavaScript
 </p>
 
+<p align="center">
+  <h1 align="center">🗳️ Votezy – Smart Online Voting System</h1>
+
+  <p align="center">
+    Developed with ❤️ by <b>Paridhi Turkar</b>
+  </p>
+</p>
