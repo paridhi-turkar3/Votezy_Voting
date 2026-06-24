@@ -5,13 +5,16 @@ import com.votezy.votezy_backend.dto.VoteDistributionResponse;
 import com.votezy.votezy_backend.entity.Candidate;
 import com.votezy.votezy_backend.repository.CandidateRepository;
 import com.votezy.votezy_backend.repository.VoteRepository;
+import com.votezy.votezy_backend.repository.VoterRepository;
 import com.votezy.votezy_backend.dto.WinnerResponse;
+
 
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +26,17 @@ public class DashboardController {
 
     private final CandidateRepository candidateRepository;
     private final VoteRepository voteRepository;
+    private final VoterRepository voterRepository;
 
     public DashboardController(
-            CandidateRepository candidateRepository,
-            VoteRepository voteRepository) {
+        CandidateRepository candidateRepository,
+        VoteRepository voteRepository,
+        VoterRepository voterRepository) {
 
-        this.candidateRepository = candidateRepository;
-        this.voteRepository = voteRepository;
-    }
+    this.candidateRepository = candidateRepository;
+    this.voteRepository = voteRepository;
+    this.voterRepository = voterRepository;
+}
 
     @GetMapping("/vote-distribution")
     public List<VoteDistributionResponse> getVoteDistribution() {
@@ -118,6 +124,15 @@ public List<CandidateVoteResponse> getCandidates() {
     }
 
     return response;
+}
+@DeleteMapping("/reset")
+public String resetElection() {
+
+    voteRepository.deleteAll();
+    voterRepository.deleteAll();
+    candidateRepository.deleteAll();
+
+    return "Election data reset successfully!";
 }
 
 }
